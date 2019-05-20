@@ -171,7 +171,7 @@ void SC18IS602::WriteBytes(uint8_t* buffer, uint8_t length)
 		}
 	} while ( WIRE.endTransmission() == 2) ; //keep trying if the device does not ack on it's device address
 	//WIRE.endTransmission();
-	delay(10);
+	//delay(10);
 	return;
 
 }
@@ -207,7 +207,7 @@ void SC18IS602::WriteRegister(uint8_t reg_addr, uint8_t val)
 		WIRE.write(val);
 	} while ( WIRE.endTransmission() == 2) ; //keep trying if the device does not ack on it's device address
     //WIRE.endTransmission(true);
-    delay(10);
+    //delay(10);
     return ;
 }
 
