@@ -215,7 +215,7 @@ class FT_Transport_SPI
 		EndTransfer();
 	}
 	
-	void Writefromflash(uint32_t Addr, prog_uchar *Src, uint32_t NBytes)
+	void Writefromflash(uint32_t Addr, const char *Src, uint32_t NBytes)
 	{
 		uint32_t i;
 		StartWrite(Addr);

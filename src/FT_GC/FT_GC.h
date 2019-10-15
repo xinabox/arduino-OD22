@@ -28,6 +28,9 @@
 #define FT_GCDEBUG2 2 //mid critical debug information
 #define FT_GCDEBUG3 3 //least critical debug information
 
+#define min(a, b) (a < b ? a : b)
+#define max(a, b) (a > b ? a : b)
+
 /* Change the below statement wrt debug criticality */
 #define FT_GCDEBUG FT_GCDEBUG0
 
@@ -327,11 +330,11 @@ class FT_GC : public FT_Trans
 	//please note that all the below apis are transfer commands
 	FT_GEStatus WriteCmd(uint32_t Cmd);
 	FT_GEStatus WriteCmd(uint8_t *Src,uint32_t NBytes);//api to send N bytes to command 	
-	FT_GEStatus WriteCmdfromflash(prog_uchar *Src,uint32_t NBytes);	
+	FT_GEStatus WriteCmdfromflash(const char *Src,uint32_t NBytes);	
 	//void StartTransferRCmd(uint32_t Addr);//assert CSpin and send read command
 	FT_GEStatus TransferCmd(uint32_t Cmd);
 	FT_GEStatus TransferCmd(uint8_t *Src,uint32_t NBytes);	
-	FT_GEStatus TransferCmdfromflash(prog_uchar *Src,uint32_t NBytes);	
+	FT_GEStatus TransferCmdfromflash(const char *Src,uint32_t NBytes);	
 	void EndTransferCmd();//de assert CSpin
 	FT_GEStatus Cmd_GetResult(uint32_t &Result);//reads the result of the previous commands such as cmd_memcrc,cmd_calibration, cmd_regread which has return values. if busy returns busy status
 	FT_GEStatus Cmd_GetResults(int8_t *pA,uint16_t NBytes);//reads N bytes of result bytes from current write pointer
@@ -1667,7 +1670,7 @@ FT_GEStatus FT_GC<FT_Trans>::TransferCmd(uint8_t *Src,uint32_t NBytes)
 	return FT_GE_OK;
 }    
 template<class FT_Trans>
-FT_GEStatus FT_GC<FT_Trans>::TransferCmdfromflash( prog_uchar *Src,uint32_t NBytes)
+FT_GEStatus FT_GC<FT_Trans>::TransferCmdfromflash( const char *Src,uint32_t NBytes)
 {
 	uint32_t i,Count;
 	//align the NBytes to multiple of 4
@@ -1777,7 +1780,7 @@ FT_GEStatus FT_GC<FT_Trans>::WriteCmd(uint8_t *Src,uint32_t NBytes)
 }   
 template<class FT_Trans>
 
-FT_GEStatus FT_GC<FT_Trans>::WriteCmdfromflash( prog_uchar *Src,uint32_t NBytes)
+FT_GEStatus FT_GC<FT_Trans>::WriteCmdfromflash( const char *Src,uint32_t NBytes)
 {
 	FT_GEStatus Status;
 	if(0 == TrnsFlag)

@@ -39,7 +39,7 @@
 #include "stdint.h"
 //#include "avr/pgmspace.h"
 
-#ifdef ESP32
+#ifdef ESP32 | ESP8266
 #include <pgmspace.h>
 #else
 #include <avr\pgmspace.h>
